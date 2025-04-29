@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECHMYST</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>TECHMYST</h1>
+        </div>
+        <div class="header-right">
+            <div class="search-container">
+                <input type="text" id="searchTools" placeholder="Search tools..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <button id="viewToggle" class="toggle-btn" data-tooltip="Toggle View Mode">
+                <i class="fas fa-desktop"></i>
+                <span class="tooltip">Desktop View</span>
+            </button>
+            <button id="offlineToggle" class="toggle-btn" data-tooltip="Toggle Offline Mode">
+                <i class="fas fa-wifi"></i>
+                <span class="tooltip">Online Mode</span>
+            </button>
+            <button id="themeToggle" class="toggle-btn" data-tooltip="Toggle Theme">
+                <i class="fas fa-moon"></i>
+                <span class="tooltip">Dark Mode</span>
+            </button>
+            <div class="user-menu-container">
+                <button id="userAvatar" class="toggle-btn" data-tooltip="User Menu">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="tooltip">User Menu</span>
+                </button>
+                <div class="user-menu">
+                    <div class="user-menu-header">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Guest User</span>
+                    </div>
+                    <div class="user-menu-options">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="tools-menu-container">
+                <button id="toolsMenu" class="toggle-btn" data-tooltip="Tools Menu">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="tooltip">Tools Menu</span>
+                </button>
+                <div class="tools-menu">
+                    <div class="tools-menu-search">
+                        <input type="text" id="menuSearchTools" placeholder="Search tools..." class="menu-search-input">
+                        <i class="fas fa-search menu-search-icon"></i>
+                    </div>
+                    <div class="tools-menu-list">
+                        <a href="#" class="tools-menu-item" data-tool="pdf">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>PDF Tools</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="image">
+                            <i class="fas fa-image"></i>
+                            <span>Image Converter</span>
+                        </a>
+                        <a href="tools/case-converter/case-converter.html" class="tools-menu-item" data-tool="case">
+                            <i class="fas fa-font"></i>
+                            <span>Case Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="currency">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Currency Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="clock">
+                            <i class="fas fa-clock"></i>
+                            <span>World Clock</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="multimedia">
+                            <i class="fas fa-film"></i>
+                            <span>Multimedia Tools</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="wordpad">
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>Online Wordpad</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="unit">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Unit Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="archive">
+                            <i class="fas fa-file-archive"></i>
+                            <span>Archive Tools</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <h2>Welcome to TECHMYST</h2>
+                <p>Free, powerful, and privacy-friendly tools for your documents, images, and productivity— no watermarks, no sign-ups & no Ads.</p>
+            </div>
+        </section>
+
+        <div class="tools-grid">
+            <div class="tool-card" data-tool="pdf">
+                <i class="fas fa-file-pdf"></i>
+                <h3>PDF Tools</h3>
+                <p>Convert, merge, and split PDF files</p>
+            </div>
+            <div class="tool-card" data-tool="image">
+                <i class="fas fa-image"></i>
+                <h3>Image Tools</h3>
+                <p>Convert images between different formats</p>
+            </div>
+            <div class="tool-card" data-tool="case" onclick="window.location.href='tools/case-converter/case-converter.html'">
+                <i class="fas fa-font"></i>
+                <h3>Case Converter</h3>
+                <p>Convert text between different cases</p>
+            </div>
+            <div class="tool-card" data-tool="currency">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>Currency Converter</h3>
+                <p>Convert between different currencies</p>
+            </div>
+            <div class="tool-card" data-tool="clock">
+                <i class="fas fa-clock"></i>
+                <h3>World Clock</h3>
+                <p>Compare time across different timezones</p>
+            </div>
+            <div class="tool-card" data-tool="multimedia">
+                <i class="fas fa-film"></i>
+                <h3>Multimedia Tools</h3>
+                <p>Convert audio and video files</p>
+            </div>
+            <div class="tool-card" data-tool="wordpad">
+                <i class="fas fa-pen-fancy"></i>
+                <h3>Online Wordpad</h3>
+                <p>Create and edit documents online</p>
+            </div>
+            <div class="tool-card" data-tool="unit">
+                <i class="fas fa-ruler-combined"></i>
+                <h3>Unit Converter</h3>
+                <p>Convert between different units</p>
+            </div>
+            <div class="tool-card" data-tool="archive">
+                <i class="fas fa-file-archive"></i>
+                <h3>Archive Tools</h3>
+                <p>Compress and extract files</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://twitter.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://github.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 TECHMYST. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Converter | TECHMYST</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .case-main-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 3rem 1rem;
+        }
+        .case-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 0 18px 0;
+            justify-content: flex-start;
+        }
+        .case-actions {
+            display: flex;
+            gap: 10px;
+            margin: 18px 0 0 0;
+        }
+        .case-stats {
+            margin-top: 10px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .case-textarea {
+            width: 100%;
+            min-height: 100px;
+            font-size: 1.1rem;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+            background: var(--background-color);
+            color: var(--text-color);
+            resize: vertical;
+        }
+        @media (max-width: 768px) {
+            .case-main-section {
+                padding: 2rem 1rem;
+                margin: 1rem;
+            }
+            .case-btns, .case-actions {
+                flex-direction: column;
+            }
+            .case-btns button, .case-actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>TECHMYST</h1>
+        </div>
+        <div class="header-right">
+            <div class="search-container">
+                <input type="text" id="searchTools" placeholder="Search tools..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <button id="viewToggle" class="toggle-btn" data-tooltip="Toggle View Mode">
+                <i class="fas fa-desktop"></i>
+                <span class="tooltip">Desktop View</span>
+            </button>
+            <button id="offlineToggle" class="toggle-btn" data-tooltip="Toggle Offline Mode">
+                <i class="fas fa-wifi"></i>
+                <span class="tooltip">Online Mode</span>
+            </button>
+            <button id="themeToggle" class="toggle-btn" data-tooltip="Toggle Theme">
+                <i class="fas fa-moon"></i>
+                <span class="tooltip">Dark Mode</span>
+            </button>
+            <div class="user-menu-container">
+                <button id="userAvatar" class="toggle-btn" data-tooltip="User Menu">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="tooltip">User Menu</span>
+                </button>
+                <div class="user-menu">
+                    <div class="user-menu-header">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Guest User</span>
+                    </div>
+                    <div class="user-menu-options">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="tools-menu-container">
+                <button id="toolsMenu" class="toggle-btn" data-tooltip="Tools Menu">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="tooltip">Tools Menu</span>
+                </button>
+                <div class="tools-menu">
+                    <div class="tools-menu-search">
+                        <input type="text" id="menuSearchTools" placeholder="Search tools..." class="menu-search-input">
+                        <i class="fas fa-search menu-search-icon"></i>
+                    </div>
+                    <div class="tools-menu-list">
+                        <a href="../../index.html" class="tools-menu-item" data-tool="pdf">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>PDF Tools</span>
+                        </a>
+                        <a href="../image-tools/index.html" class="tools-menu-item" data-tool="image">
+                            <i class="fas fa-image"></i>
+                            <span>Image Converter</span>
+                        </a>
+                        <a href="simple.html" class="tools-menu-item" data-tool="case">
+                            <i class="fas fa-font"></i>
+                            <span>Case Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="currency">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Currency Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="clock">
+                            <i class="fas fa-clock"></i>
+                            <span>World Clock</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="multimedia">
+                            <i class="fas fa-film"></i>
+                            <span>Multimedia Tools</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="wordpad">
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>Online Wordpad</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="unit">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Unit Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="archive">
+                            <i class="fas fa-file-archive"></i>
+                            <span>Archive Tools</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <h2>Case Converter</h2>
+                <p>Transform text between different case styles with a single click</p>
+            </div>
+        </section>
+        <section class="case-main-section">
+            <label for="caseInput">Enter your text:</label>
+            <textarea id="caseInput" rows="6" class="case-textarea" placeholder="Type or paste your text here..."></textarea>
+            <div class="case-btns">
+                <button class="case-btn" data-case="upper">UPPERCASE</button>
+                <button class="case-btn" data-case="lower">lowercase</button>
+                <button class="case-btn" data-case="title">Title Case</button>
+                <button class="case-btn" data-case="sentence">Sentence case</button>
+                <button class="case-btn" data-case="camel">camelCase</button>
+                <button class="case-btn" data-case="pascal">PascalCase</button>
+                <button class="case-btn" data-case="snake">snake_case</button>
+                <button class="case-btn" data-case="kebab">kebab-case</button>
+                <button class="case-btn" data-case="toggle">Toggle Case</button>
+                <button class="case-btn" data-case="alt">Alternating Case</button>
+            </div>
+            <label for="caseOutput">Result:</label>
+            <textarea id="caseOutput" rows="6" class="case-textarea" readonly></textarea>
+            <div class="case-actions">
+                <button id="copyBtn" class="case-btn"><i class="fas fa-copy"></i> Copy</button>
+                <button id="clearBtn" class="case-btn"><i class="fas fa-eraser"></i> Clear</button>
+            </div>
+            <div class="case-stats">
+                <span id="wordCount">0 words</span> | <span id="sentenceCount">0 sentences</span>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="social-links">
+            <a href="https://twitter.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://github.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 TECHMYST. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="../../script.js"></script>
+    <script src="case-converter.js"></script>
+</body>
+</html> 
