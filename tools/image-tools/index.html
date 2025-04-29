@@ -3,15 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHMYST</title>
+    <title>Image Tools - TECHMYST</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="image-tools.css">
+    <style>
+        :root {
+            --surface-color: var(--card-bg);
+            --text-secondary: #666;
+            --border-color: rgba(0, 0, 0, 0.1);
+        }
+        [data-theme="dark"] {
+            --text-secondary: #aaa;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .tool-header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+    </style>
+    <script>
+        // Debug logging
+        console.log('Head script loaded');
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM Content Loaded');
+            const themeToggle = document.getElementById('themeToggle');
+            console.log('Theme toggle element:', themeToggle);
+            if (themeToggle) {
+                console.log('Theme toggle found');
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                console.log('Saved theme:', savedTheme);
+                document.body.setAttribute('data-theme', savedTheme);
+            } else {
+                console.log('Theme toggle not found');
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
         <div class="header-left">
-            <h1>TECHMYST</h1>
+            <h1><a href="/index.html">TECHMYST</a></h1>
         </div>
         <div class="header-right">
             <div class="search-container">
@@ -59,7 +96,7 @@
                         <span></span>
                         <span></span>
                     </div>
-                    <span class="tooltip">Tools Menu1</span>
+                    <span class="tooltip">Tools Menu</span>
                 </button>
                 <div class="tools-menu">
                     <div class="tools-menu-search">
@@ -71,11 +108,11 @@
                             <i class="fas fa-file-pdf"></i>
                             <span>PDF Tools</span>
                         </a>
-                        <a href="tools/image-tools/index.html" class="tools-menu-item" data-tool="image">
+                        <a href="#" class="tools-menu-item active" data-tool="image">
                             <i class="fas fa-image"></i>
                             <span>Image Tools</span>
                         </a>
-                        <a href="tools/case-converter/case-converter.html" class="tools-menu-item" data-tool="case">
+                        <a href="../case-converter/case-converter.html" class="tools-menu-item" data-tool="case">
                             <i class="fas fa-font"></i>
                             <span>Case Converter</span>
                         </a>
@@ -110,59 +147,52 @@
     </header>
 
     <main>
-        <section class="welcome-section">
-            <div class="welcome-content">
-                <h2>Welcome to TECHMYST</h2>
-                <p>Free, powerful, and privacy-friendly tools for your documents, images, and productivity— no watermarks, no sign-ups & no Ads.</p>
-            </div>
+        <section class="tool-header">
+            <h2>Image Tools</h2>
+            <p>Free online tools to edit, convert, and optimize your images</p>
         </section>
 
         <div class="tools-grid">
-            <a href="tools/pdf-tools/index.html" class="tool-card" data-tool="pdf">
-                <i class="fas fa-file-pdf"></i>
-                <h3>PDF Tools</h3>
-                <p>Convert, merge, and split PDF files</p>
-            </a>
-            <a href="tools/image-tools/index.html" class="tool-card" data-tool="image">
-                <i class="fas fa-image"></i>
-                <h3>Image Tools</h3>
-                <p>Edit, convert, and optimize your images</p>
-            </a>
-            <a href="tools/case-converter/case-converter.html" class="tool-card" data-tool="case">
-                <i class="fas fa-font"></i>
-                <h3>Case Converter</h3>
-                <p>Convert text between different cases</p>
-            </a>
-            <a href="tools/currency-converter/index.html" class="tool-card" data-tool="currency">
-                <i class="fas fa-money-bill-wave"></i>
-                <h3>Currency Converter</h3>
-                <p>Convert between different currencies</p>
-            </a>
-            <a href="tools/world-clock/index.html" class="tool-card" data-tool="clock">
-                <i class="fas fa-clock"></i>
-                <h3>World Clock</h3>
-                <p>Compare time across different timezones</p>
-            </a>
-            <a href="tools/multimedia-tools/index.html" class="tool-card" data-tool="multimedia">
-                <i class="fas fa-film"></i>
-                <h3>Multimedia Tools</h3>
-                <p>Convert audio and video files</p>
-            </a>
-            <a href="tools/wordpad/index.html" class="tool-card" data-tool="wordpad">
-                <i class="fas fa-pen-fancy"></i>
-                <h3>Online Wordpad</h3>
-                <p>Create and edit documents online</p>
-            </a>
-            <a href="tools/unit-converter/index.html" class="tool-card" data-tool="unit">
-                <i class="fas fa-ruler-combined"></i>
-                <h3>Unit Converter</h3>
-                <p>Convert between different units</p>
-            </a>
-            <a href="tools/archive-tools/index.html" class="tool-card" data-tool="archive">
-                <i class="fas fa-file-archive"></i>
-                <h3>Archive Tools</h3>
-                <p>Compress and extract files</p>
-            </a>
+            <div class="tool-card" data-tool="converter">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Image Format Converter</h3>
+                <p>Convert images between different formats (JPG, PNG, WebP, etc.)</p>
+            </div>
+            <div class="tool-card" data-tool="compressor">
+                <i class="fas fa-compress-alt"></i>
+                <h3>Image Compressor</h3>
+                <p>Reduce image file size while maintaining quality</p>
+            </div>
+            <div class="tool-card" data-tool="resizer">
+                <i class="fas fa-expand-arrows-alt"></i>
+                <h3>Image Resizer</h3>
+                <p>Resize images to specific dimensions</p>
+            </div>
+            <div class="tool-card" data-tool="viewer">
+                <i class="fas fa-eye"></i>
+                <h3>Image Viewer</h3>
+                <p>View and analyze image details</p>
+            </div>
+            <div class="tool-card" data-tool="cropper">
+                <i class="fas fa-crop-alt"></i>
+                <h3>Image Cropper</h3>
+                <p>Crop images to desired dimensions</p>
+            </div>
+            <div class="tool-card" data-tool="rescale">
+                <i class="fas fa-arrows-alt-v"></i>
+                <h3>Image Rescale</h3>
+                <p>Change image scale while maintaining aspect ratio</p>
+            </div>
+            <div class="tool-card" data-tool="rotate">
+                <i class="fas fa-sync-alt"></i>
+                <h3>Image Rotator</h3>
+                <p>Rotate and flip images</p>
+            </div>
+            <div class="tool-card" data-tool="upscale">
+                <i class="fas fa-search-plus"></i>
+                <h3>Image Upscaler</h3>
+                <p>Increase image resolution with AI</p>
+            </div>
         </div>
     </main>
 
@@ -183,6 +213,22 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="../../script.js"></script>
+    <script src="image-tools.js"></script>
+    <script>
+        // Additional debug logging
+        console.log('Scripts loaded');
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                console.log('Theme toggle clicked');
+                const currentTheme = document.body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                console.log('Switching theme from', currentTheme, 'to', newTheme);
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+    </script>
 </body>
 </html> 

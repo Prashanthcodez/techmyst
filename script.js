@@ -1,29 +1,31 @@
-// Theme Toggle
-const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
-const themeIcon = themeToggle.querySelector('i');
-const themeTooltip = themeToggle.querySelector('.tooltip');
+console.log('Script.js loaded');
 
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
+// Theme Toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector('i');
+    const themeTooltip = themeToggle.querySelector('.tooltip');
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
     body.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
-}
 
-themeToggle.addEventListener('click', () => {
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+        themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        themeTooltip.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    }
 });
-
-function updateThemeIcon(theme) {
-    themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    themeTooltip.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
-}
 
 // View Toggle
 const viewToggle = document.getElementById('viewToggle');
@@ -37,42 +39,18 @@ viewToggle.addEventListener('click', () => {
 });
 
 // Tool Cards Hover Effect
-const toolCards = document.querySelectorAll('.tool-card');
-
-toolCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-    });
-});
-
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then((registration) => {
-                console.log('ServiceWorker registration successful:', registration.scope);
-            })
-            .catch((error) => {
-                console.log('ServiceWorker registration failed:', error);
-            });
-    });
-}
-
-// Handle Tool Card Clicks
-toolCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const tool = card.getAttribute('data-tool');
-        if (tool === 'case') {
-            window.location.href = 'tools/case-converter/case-converter.html';
-        } else {
-            // We'll implement the navigation to other tool pages later
-            console.log(`Navigating to ${tool} tool page`);
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    const toolCards = document.querySelectorAll('.tool-card');
+    
+    toolCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
     });
 });
 
@@ -217,4 +195,17 @@ menuSearchInput.addEventListener('input', (e) => {
             }, 300);
         }
     });
+});
+
+// Tool Card Click Event
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.tool-card')) {
+        const toolCard = e.target.closest('.tool-card');
+        const tool = toolCard.querySelector('h3').textContent.toLowerCase();
+        
+        if (e.target.closest('.tool-card')) {
+            // We'll implement the navigation to other tool pages later
+            console.log('Navigating to ' + tool + ' tool page');
+        }
+    }
 }); 

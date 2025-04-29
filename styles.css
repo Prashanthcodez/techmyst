@@ -198,12 +198,16 @@ main {
 }
 
 .tool-card {
-    background-color: var(--card-bg);
+    background: var(--card-bg);
     border-radius: 15px;
     padding: 2rem;
     text-align: center;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
     transition: transform 0.3s ease;
     animation: fadeIn 0.5s ease forwards;
     opacity: 1;

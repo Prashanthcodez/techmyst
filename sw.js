@@ -1,18 +1,12 @@
-const CACHE_NAME = 'techtools-v1';
-const ASSETS_TO_CACHE = [
-    './',
-    './index.html',
-    './styles.css',
-    './script.js',
-    './assets/all.min.css',
-    '/assets/webfonts/fa-solid-900.woff2',
-    '/assets/webfonts/fa-solid-900.ttf',
-    '/assets/webfonts/fa-brands-400.woff2',
-    '/assets/webfonts/fa-brands-400.ttf',
-    '/assets/webfonts/fa-regular-400.woff2',
-    '/assets/webfonts/fa-regular-400.ttf',
-    '/assets/webfonts/fa-v4compatibility.woff2',
-    '/assets/webfonts/fa-v4compatibility.ttf'
+const CACHE_NAME = 'techmyst-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/script.js',
+  '/tools/case-converter/case-converter.html',
+  '/tools/image-tools/index.html',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
 ];
 
 // Install event - cache assets
@@ -20,7 +14,8 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                return cache.addAll(ASSETS_TO_CACHE);
+                console.log('Opened cache');
+                return cache.addAll(urlsToCache);
             })
     );
 });
@@ -45,7 +40,21 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
-                return response || fetch(event.request);
+                if (response) {
+                    return response;
+                }
+                return fetch(event.request)
+                    .then((response) => {
+                        if (!response || response.status !== 200 || response.type !== 'basic') {
+                            return response;
+                        }
+                        const responseToCache = response.clone();
+                        caches.open(CACHE_NAME)
+                            .then((cache) => {
+                                cache.put(event.request, responseToCache);
+                            });
+                        return response;
+                    });
             })
     );
 }); 

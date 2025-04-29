@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHMYST</title>
+    <title>Image Converter - TECHMYST</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="image-tools.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
 </head>
 <body>
     <header>
         <div class="header-left">
-            <h1>TECHMYST</h1>
+            <h1><a href="../../index.html">TECHMYST</a></h1>
         </div>
         <div class="header-right">
             <div class="search-container">
@@ -59,7 +63,7 @@
                         <span></span>
                         <span></span>
                     </div>
-                    <span class="tooltip">Tools Menu1</span>
+                    <span class="tooltip">Tools Menu</span>
                 </button>
                 <div class="tools-menu">
                     <div class="tools-menu-search">
@@ -71,11 +75,11 @@
                             <i class="fas fa-file-pdf"></i>
                             <span>PDF Tools</span>
                         </a>
-                        <a href="tools/image-tools/index.html" class="tools-menu-item" data-tool="image">
+                        <a href="#" class="tools-menu-item active" data-tool="image">
                             <i class="fas fa-image"></i>
                             <span>Image Tools</span>
                         </a>
-                        <a href="tools/case-converter/case-converter.html" class="tools-menu-item" data-tool="case">
+                        <a href="../case-converter/case-converter.html" class="tools-menu-item" data-tool="case">
                             <i class="fas fa-font"></i>
                             <span>Case Converter</span>
                         </a>
@@ -110,59 +114,61 @@
     </header>
 
     <main>
-        <section class="welcome-section">
-            <div class="welcome-content">
-                <h2>Welcome to TECHMYST</h2>
-                <p>Free, powerful, and privacy-friendly tools for your documents, images, and productivity— no watermarks, no sign-ups & no Ads.</p>
-            </div>
+        <section class="tool-header">
+            <h2>Image Converter</h2>
+            <p>Convert your images to different formats offline. Supports multiple formats and batch conversion.</p>
         </section>
 
-        <div class="tools-grid">
-            <a href="tools/pdf-tools/index.html" class="tool-card" data-tool="pdf">
-                <i class="fas fa-file-pdf"></i>
-                <h3>PDF Tools</h3>
-                <p>Convert, merge, and split PDF files</p>
-            </a>
-            <a href="tools/image-tools/index.html" class="tool-card" data-tool="image">
-                <i class="fas fa-image"></i>
-                <h3>Image Tools</h3>
-                <p>Edit, convert, and optimize your images</p>
-            </a>
-            <a href="tools/case-converter/case-converter.html" class="tool-card" data-tool="case">
-                <i class="fas fa-font"></i>
-                <h3>Case Converter</h3>
-                <p>Convert text between different cases</p>
-            </a>
-            <a href="tools/currency-converter/index.html" class="tool-card" data-tool="currency">
-                <i class="fas fa-money-bill-wave"></i>
-                <h3>Currency Converter</h3>
-                <p>Convert between different currencies</p>
-            </a>
-            <a href="tools/world-clock/index.html" class="tool-card" data-tool="clock">
-                <i class="fas fa-clock"></i>
-                <h3>World Clock</h3>
-                <p>Compare time across different timezones</p>
-            </a>
-            <a href="tools/multimedia-tools/index.html" class="tool-card" data-tool="multimedia">
-                <i class="fas fa-film"></i>
-                <h3>Multimedia Tools</h3>
-                <p>Convert audio and video files</p>
-            </a>
-            <a href="tools/wordpad/index.html" class="tool-card" data-tool="wordpad">
-                <i class="fas fa-pen-fancy"></i>
-                <h3>Online Wordpad</h3>
-                <p>Create and edit documents online</p>
-            </a>
-            <a href="tools/unit-converter/index.html" class="tool-card" data-tool="unit">
-                <i class="fas fa-ruler-combined"></i>
-                <h3>Unit Converter</h3>
-                <p>Convert between different units</p>
-            </a>
-            <a href="tools/archive-tools/index.html" class="tool-card" data-tool="archive">
-                <i class="fas fa-file-archive"></i>
-                <h3>Archive Tools</h3>
-                <p>Compress and extract files</p>
-            </a>
+        <div class="converter-container">
+            <div class="file-types-display" id="fileTypesDisplay">
+                <p>Selected file types will appear here</p>
+            </div>
+
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-zone-content">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & Drop images here or click to select</p>
+                    <p class="file-limit">Maximum 10 images</p>
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                </div>
+            </div>
+
+            <div class="conversion-controls">
+                <button id="clearSelection" class="btn secondary">Clear Selection</button>
+                <div class="convert-controls">
+                    <select id="formatSelect" class="format-select">
+                        <option value="">Select Format</option>
+                        <option value="jpg">JPG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="heic">HEIC</option>
+                        <option value="heif">HEIF</option>
+                        <option value="cr2">CR2</option>
+                        <option value="webp">WebP</option>
+                        <option value="psd">PSD</option>
+                        <option value="png">PNG</option>
+                        <option value="bmp">BMP</option>
+                        <option value="raw">RAW</option>
+                        <option value="nef">NEF</option>
+                        <option value="orf">ORF</option>
+                        <option value="sr2">SR2</option>
+                        <option value="ai">AI</option>
+                        <option value="gif">GIF</option>
+                        <option value="tif">TIF</option>
+                        <option value="tiff">TIFF</option>
+                        <option value="indd">INDD</option>
+                        <option value="avif">AVIF</option>
+                        <option value="eps">EPS</option>
+                        <option value="xcf">XCF</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                    <button id="convertBtn" class="btn primary">Convert</button>
+                </div>
+                <button id="downloadAllBtn" class="btn primary" disabled>Download All as ZIP</button>
+            </div>
+
+            <div class="preview-container" id="previewContainer">
+                <!-- Image previews will be added here dynamically -->
+            </div>
         </div>
     </main>
 
@@ -183,6 +189,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="../../script.js"></script>
+    <script src="image_converter.js"></script>
 </body>
 </html> 
