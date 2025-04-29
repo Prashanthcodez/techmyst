@@ -183,11 +183,37 @@
     min-width: 200px;
     font-size: 1rem;
     cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+.format-select option {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 0.5rem;
+}
+
+[data-theme="dark"] .format-select {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-color: #444;
+}
+
+[data-theme="dark"] .format-select option {
+    background-color: #2d2d2d;
+    color: #ffffff;
 }
 
 .format-select:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
 }
 
 .btn {
@@ -387,8 +413,10 @@
 
 :root {
     --error-color: #dc3545;
+    --primary-color-rgb: 102, 51, 153;
 }
 
 [data-theme="dark"] {
     --error-color: #ff4b5a;
+    --primary-color-rgb: 147, 51, 234;
 } 

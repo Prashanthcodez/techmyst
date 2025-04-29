@@ -61,4 +61,59 @@ document.addEventListener('DOMContentLoaded', function() {
             themeTooltip.textContent = 'Dark Mode';
         }
     }
+
+    // Search functionality
+    const searchInput = document.getElementById('searchTools');
+    const menuSearchInput = document.getElementById('menuSearchTools');
+    const menuItems = document.querySelectorAll('.tools-menu-item');
+
+    function handleSearch(searchTerm, items, isMenu = false) {
+        searchTerm = searchTerm.toLowerCase();
+        
+        items.forEach(item => {
+            const title = item.querySelector(isMenu ? 'span' : 'h3').textContent.toLowerCase();
+            const description = isMenu ? '' : item.querySelector('p').textContent.toLowerCase();
+            const isMatch = title.includes(searchTerm) || description.includes(searchTerm);
+            
+            if (isMenu) {
+                if (isMatch) {
+                    item.style.display = 'flex';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(-10px)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            } else {
+                if (isMatch) {
+                    item.style.display = 'block';
+                    item.style.animation = 'fadeIn 0.5s ease forwards';
+                } else {
+                    item.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        handleSearch(e.target.value, toolCards);
+    });
+
+    menuSearchInput.addEventListener('input', (e) => {
+        handleSearch(e.target.value, menuItems, true);
+    });
+
+    // Tool card click handler
+    document.querySelectorAll('.tool-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const tool = card.getAttribute('data-tool');
+            if (tool === 'converter') {
+                window.location.href = 'image_converter.html';
+            }
+            // Add other tool handlers here
+        });
+    });
 }); 
