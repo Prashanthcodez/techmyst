@@ -52,9 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add these variables at the top with other DOM elements
     const customSizeInput = document.getElementById('customSizeInput');
-    const sizeUnitKB = document.getElementById('sizeUnitKB');
-    const sizeUnitMB = document.getElementById('sizeUnitMB');
+    const sizeUnitKB = document.querySelector('input[value="kb"]');
+    const sizeUnitMB = document.querySelector('input[value="mb"]');
     const convertSizeBtn = document.getElementById('convertSize');
+    const compressedSizeElement = document.getElementById('compressedSize');
 
     // Common functions
     function formatFileSize(bytes) {
