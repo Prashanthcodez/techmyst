@@ -12,9 +12,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to handle tool card clicks
     function handleToolClick(toolType) {
-        // For now, just show an alert. This will be replaced with actual tool implementations
+        if (toolType === 'converter') {
+            window.location.href = 'image_converter.html';
+            return;
+        }
+        
+        // For other tools, show the alert
         const toolNames = {
-            'converter': 'Image Format Converter',
             'compressor': 'Image Compressor',
             'resizer': 'Image Resizer',
             'viewer': 'Image Viewer',
@@ -24,11 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'upscale': 'Image Upscaler'
         };
 
-        // When tools are implemented, uncomment this code and remove the alert
-        // const toolPath = `${toolType}.html`;
-        // window.location.href = toolPath;
-        
-        // For now, just show an alert
         alert(`${toolNames[toolType]} tool will be implemented soon!`);
     }
 
