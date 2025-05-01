@@ -419,4 +419,219 @@
 [data-theme="dark"] {
     --error-color: #ff4b5a;
     --primary-color-rgb: 147, 51, 234;
+}
+
+/* Image Compressor Styles */
+.compressor-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mode-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.mode-btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mode-btn i {
+    font-size: 1.2rem;
+}
+
+.mode-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.mode-btn:hover:not(.active) {
+    background: var(--bg-hover);
+}
+
+.compression-mode {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.compression-mode.active {
+    display: block;
+}
+
+.file-info {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.quality-control {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.quality-control label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.quality-control input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--bg-hover);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.quality-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quality-control input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.size-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.size-info p {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .compressor-container {
+    background: #2d2d2d;
+}
+
+[data-theme="dark"] .mode-btn:not(.active) {
+    background: #3d3d3d;
+}
+
+[data-theme="dark"] .mode-btn:hover:not(.active) {
+    background: #4d4d4d;
+}
+
+[data-theme="dark"] .quality-control input[type="range"] {
+    background: #4d4d4d;
+}
+
+[data-theme="dark"] .quality-control input[type="range"]::-webkit-slider-thumb {
+    background: var(--primary-color);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .compressor-container {
+        padding: 1rem;
+    }
+
+    .mode-selector {
+        flex-direction: column;
+    }
+
+    .mode-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+}
+
+.custom-size-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.custom-size-controls input[type="number"] {
+    width: 100px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--text-color);
+}
+
+.size-unit-options {
+    display: flex;
+    gap: 15px;
+}
+
+.size-unit-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.size-unit-options input[type="radio"] {
+    margin: 0;
+}
+
+#convertSize {
+    margin-left: auto;
+    padding: 8px 15px;
 } 

@@ -17,9 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        if (toolType === 'compressor') {
+            window.location.href = 'image_compressor.html';
+            return;
+        }
+        
         // For other tools, show the alert
         const toolNames = {
-            'compressor': 'Image Compressor',
             'resizer': 'Image Resizer',
             'viewer': 'Image Viewer',
             'cropper': 'Image Cropper',

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor - TECHMYST</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="image-tools.css">
+    <!-- Core libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <!-- Image format support -->
+    <script src="https://unpkg.com/heic2any@0.0.4/dist/heic2any.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/psd.js@0.4.5/dist/psd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/png.js@1.0.0/png.min.js"></script>
+    
+    <!-- Compression and processing -->
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/raw.js@1.0.0/dist/raw.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-to-blob@0.0.0/canvas-to-blob.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>TECHMYST</h1>
+        </div>
+        <div class="header-right">
+            <div class="search-container">
+                <input type="text" id="searchTools" placeholder="Search tools..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <button id="viewToggle" class="toggle-btn" data-tooltip="Toggle View Mode">
+                <i class="fas fa-desktop"></i>
+                <span class="tooltip">Desktop View</span>
+            </button>
+            <button id="offlineToggle" class="toggle-btn" data-tooltip="Toggle Offline Mode">
+                <i class="fas fa-wifi"></i>
+                <span class="tooltip">Online Mode</span>
+            </button>
+            <button id="themeToggle" class="toggle-btn" data-tooltip="Toggle Theme">
+                <i class="fas fa-moon"></i>
+                <span class="tooltip">Dark Mode</span>
+            </button>
+            <div class="user-menu-container">
+                <button id="userAvatar" class="toggle-btn" data-tooltip="User Menu">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="tooltip">User Menu</span>
+                </button>
+                <div class="user-menu">
+                    <div class="user-menu-header">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Guest User</span>
+                    </div>
+                    <div class="user-menu-options">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="tools-menu-container">
+                <button id="toolsMenu" class="toggle-btn" data-tooltip="Tools Menu">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="tooltip">Tools Menu</span>
+                </button>
+                <div class="tools-menu">
+                    <div class="tools-menu-search">
+                        <input type="text" id="menuSearchTools" placeholder="Search tools..." class="menu-search-input">
+                        <i class="fas fa-search menu-search-icon"></i>
+                    </div>
+                    <div class="tools-menu-list">
+                        <a href="#" class="tools-menu-item" data-tool="pdf">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>PDF Tools</span>
+                        </a>
+                        <a href="#" class="tools-menu-item active" data-tool="image">
+                            <i class="fas fa-image"></i>
+                            <span>Image Tools</span>
+                        </a>
+                        <a href="image_converter.html" class="tools-menu-item" data-tool="converter">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Image Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item active" data-tool="compressor">
+                            <i class="fas fa-compress-alt"></i>
+                            <span>Image Compressor</span>
+                        </a>
+                        <a href="../case-converter/case-converter.html" class="tools-menu-item" data-tool="case">
+                            <i class="fas fa-font"></i>
+                            <span>Case Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="currency">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Currency Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="clock">
+                            <i class="fas fa-clock"></i>
+                            <span>World Clock</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="multimedia">
+                            <i class="fas fa-film"></i>
+                            <span>Multimedia Tools</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="wordpad">
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>Online Wordpad</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="unit">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Unit Converter</span>
+                        </a>
+                        <a href="#" class="tools-menu-item" data-tool="archive">
+                            <i class="fas fa-file-archive"></i>
+                            <span>Archive Tools</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-header">
+            <h2>Image Compressor</h2>
+            <p>Compress your images to reduce file size while maintaining quality. Works completely offline.</p>
+        </section>
+
+        <div class="compressor-container">
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="single">
+                    <i class="fas fa-file-image"></i>
+                    Single File
+                </button>
+                <button class="mode-btn" data-mode="multiple">
+                    <i class="fas fa-images"></i>
+                    Multiple Files
+                </button>
+            </div>
+
+            <!-- Single File Mode -->
+            <div class="compression-mode active" id="singleMode">
+                <div class="file-info" id="singleFileInfo">
+                    <p>No file selected</p>
+                </div>
+
+                <div class="drop-zone" id="singleDropZone">
+                    <div class="drop-zone-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop image here or click to select</p>
+                        <input type="file" id="singleFileInput" accept="image/jpeg,image/jpg,image/heic,image/heif,image/cr2,image/webp,image/psd,image/png,image/bmp,image/raw,image/nef,image/orf,image/sr2,image/ai,image/gif,image/tif,image/tiff,image/indd,image/avif,image/eps,image/xcf,application/pdf,.heic,.heif,.cr2,.webp,.psd,.png,.bmp,.raw,.nef,.orf,.sr2,.ai,.gif,.tif,.tiff,.indd,.avif,.eps,.xcf,.pdf" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="preview-container" id="singlePreview">
+                    <!-- Preview will be added here -->
+                </div>
+
+                <div class="compression-controls">
+                    <div class="quality-control">
+                        <label for="qualitySlider">Quality: <span id="qualityValue">80%</span></label>
+                        <input type="range" id="qualitySlider" min="1" max="100" value="80">
+                    </div>
+                    <div class="size-info">
+                        <p>Original Size: <span id="originalSize">-</span></p>
+                        <div class="custom-size-controls">
+                            <input type="number" id="customSizeInput" placeholder="Enter size" min="1">
+                            <div class="size-unit-options">
+                                <label>
+                                    <input type="radio" name="sizeUnit" value="kb" checked> KB
+                                </label>
+                                <label>
+                                    <input type="radio" name="sizeUnit" value="mb"> MB
+                                </label>
+                            </div>
+                            <button id="convertSize" class="btn secondary">Compress</button>
+                        </div>
+                        <p>Compressed Size: <span id="compressedSize">-</span></p>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="downloadSingle" class="btn primary" disabled>Download</button>
+                        <button id="clearSingle" class="btn secondary">Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multiple Files Mode -->
+            <div class="compression-mode" id="multipleMode">
+                <div class="file-info" id="multipleFileInfo">
+                    <p>No files selected</p>
+                </div>
+
+                <div class="drop-zone" id="multipleDropZone">
+                    <div class="drop-zone-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop images here or click to select</p>
+                        <p class="file-limit">Maximum 10 images</p>
+                        <input type="file" id="multipleFileInput" multiple accept="image/jpeg,image/jpg,image/heic,image/heif,image/cr2,image/webp,image/psd,image/png,image/bmp,image/raw,image/nef,image/orf,image/sr2,image/ai,image/gif,image/tif,image/tiff,image/indd,image/avif,image/eps,image/xcf,application/pdf,.heic,.heif,.cr2,.webp,.psd,.png,.bmp,.raw,.nef,.orf,.sr2,.ai,.gif,.tif,.tiff,.indd,.avif,.eps,.xcf,.pdf" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="preview-container" id="multiplePreview">
+                    <!-- Previews will be added here -->
+                </div>
+
+                <div class="compression-controls">
+                    <div class="quality-control">
+                        <label for="multipleQualitySlider">Quality: <span id="multipleQualityValue">80%</span></label>
+                        <input type="range" id="multipleQualitySlider" min="1" max="100" value="80">
+                    </div>
+                    <div class="size-info">
+                        <p>Total Original Size: <span id="totalOriginalSize">-</span></p>
+                        <p>Total Compressed Size: <span id="totalCompressedSize">-</span></p>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="downloadMultiple" class="btn primary" disabled>Download All as ZIP</button>
+                        <button id="clearMultiple" class="btn secondary">Clear All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://twitter.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://github.com/techmyst" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 TECHMYST. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="image_compressor.js"></script>
+</body>
+</html> 
